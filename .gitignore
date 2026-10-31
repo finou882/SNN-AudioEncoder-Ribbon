@@ -1,0 +1,20 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Output & Artifacts
+*.png
+*.wav
+*.mp3
+
+# Secret & Environment files (For Public GitHub protection)
+.env
+.env.*
+secrets/

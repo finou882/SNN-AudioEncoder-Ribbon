@@ -1,0 +1,29 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        http_proxy: http://10.5.1.1:8080
+        https_proxy: http://10.5.1.1:8080
+        HTTP_PROXY: http://10.5.1.1:8080
+        HTTPS_PROXY: http://10.5.1.1:8080
+    image: snn-audioencoder-ribbon:latest
+    container_name: snn-ribbon-encoder
+    environment:
+      - http_proxy=http://10.5.1.1:8080
+      - https_proxy=http://10.5.1.1:8080
+      - HTTP_PROXY=http://10.5.1.1:8080
+      - HTTPS_PROXY=http://10.5.1.1:8080
+    volumes:
+      - .:/workspace
+      - venv:/workspace/.venv
+    working_dir: /workspace
+    # 強化学習プロセスへの干渉を避けるためのリソース適正化（必要に応じて調整可能）
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4G
+
+volumes:
+  venv:
