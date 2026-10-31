@@ -1,11 +1,10 @@
 """Main Entry Point for SNN-AudioEncoder-Ribbon."""
 
-from demo import main as run_demo
+from launch import main as run_launcher
 
 
 def main():
-    print("SNN-AudioEncoder-Ribbon: Starting demo and verification...")
-    run_demo()
+    run_launcher()
 
 
 if __name__ == "__main__":

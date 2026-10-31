@@ -33,11 +33,13 @@
 
 ```
 SNN-AudioEncoder-Ribbon/
-├── config.py          # ハイパーパラメータの一元管理（自由にいじれる設定）
+├── launch.py          # 実験・実行ランチャー（CLI引数で全パラメータを調整可能）
+├── config.py          # ハイパーパラメータの一元管理（デフォルト設定）
 ├── receptor.py        # 周波数受容部 ＆ 動的ピント伸縮
 ├── ribbon_synapse.py  # リボンシナプス小胞プール ＆ 10〜20個の並列後細胞
 ├── encoder.py         # 全体を統合した完成オーディオエンコーダ
 ├── demo.py            # 検証・可視化スクリプト
+├── main.py            # メインエントリーポイント
 ├── pyproject.toml     # プロジェクト設定
 └── README.md
 ```
@@ -49,22 +51,38 @@ SNN-AudioEncoder-Ribbon/
 ### 依存関係のインストール
 ```bash
 uv sync
-# または
-uv add numpy matplotlib scipy
 ```
 
-### デモ＆検証プロットの実行
+### 実験ランチャー（`launch.py`）による実行
+ハイパーパラメータ（小胞放出率、順応補充速度、閾値グラデーション、ボレー不応期など）を引数で自由に指定して実験できます：
 
-**Docker環境（推奨・IDE保護）**:
 ```bash
-docker compose run --rm app python demo.py
+# デフォルト設定でデモ実行＆発火マトリックス表示
+uv run python launch.py --show-table
+
+# 放出率と補充速度（順応スピード）を調整
+uv run python launch.py --release-rate 2.5 --replenish-rate 0.10
+
+# 閾値グラデーションとボレー不応期を調整
+uv run python launch.py --min-threshold 0.12 --max-threshold 0.80 --refractory-steps 3
+
+# 独自の音声ファイル (.wav) を流して解析
+uv run python launch.py --audio sample.wav --output result.png
 ```
 
-**ローカル環境**:
-```bash
-uv run python demo.py
-```
-実行すると、入力音声波形・帯域幅の伸縮・プールの推移・スパイク列をまとめた画像 `ribbon_encoder_demo.png` が生成されます。
+#### 主なCLI引数一覧
+| 引数 | 説明 | デフォルト値 |
+| :--- | :--- | :--- |
+| `--release-rate` | 音刺激に対する小胞放出率（アタック強度と高閾値動員） | `2.0` |
+| `--replenish-rate` | 小胞補充速度（順応後の持続発火レベルと回復の速さ） | `0.08` |
+| `--min-threshold` | 最も敏感な後細胞の閾値（かすかな微小音用） | `0.15` |
+| `--max-threshold` | 最も鈍感な後細胞の閾値（大音量アタック用） | `0.85` |
+| `--refractory-steps` | 不応期ステップ数（ボレー原理：交代発火の休息間隔） | `2` (約4ms) |
+| `--num-post-neurons` | 1チャネルあたりの後細胞数 | `15` |
+| `--num-channels` | 周波数チャネル数 | `16` |
+| `--audio` | 入力WAVファイルのパス（未指定時は検証用音声を生成） | `None` |
+| `--output` | プロット画像の保存先パス | `ribbon_encoder_demo.png` |
+| `--show-table` | チャネル別・ニューロン別の詳細発火統計表を表示 | `False` |
 
 ### コードでの利用例
 ```python
