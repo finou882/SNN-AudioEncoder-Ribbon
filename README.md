@@ -84,6 +84,33 @@ uv run python singularity_test.py
 
 ---
 
+## 📈 音量単体＆音量×周波数2次元特異点ベンチマーク
+
+音量単体の跳躍（微小音量・大音量跳躍・ウェーバー則）に対する閾値ニューロン動員数（15段階）と、背景音下での「周波数×音量」2次元局所バーストを検証します：
+
+```bash
+uv run python volume_and_2d_singularity_test.py
+```
+実行すると、閾値別ラスタープロットと2次元時空間ヒートマップ `volume_and_2d_singularity_result.png` が生成されます。
+
+---
+
+## 🍸 カクテルパーティー効果＆エンコーダ特性・計算コスト検証
+
+- **カクテルパーティー効果検証（BGM中の突発音声抽出）：**
+  ```bash
+  uv run python cocktail_party_test.py
+  ```
+  生成画像: `cocktail_party_result.png`
+
+- **既存エンコーダ得意タスク（静的スペクトル・差分エッジ）＆レイテンシ・計算コスト：**
+  ```bash
+  uv run python encoder_tradeoffs_and_cost.py
+  ```
+  生成画像: `encoder_cost_and_tradeoffs.png`
+
+---
+
 ## 🚀 使い方
 
 ### 依存関係のインストール
