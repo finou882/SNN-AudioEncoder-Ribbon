@@ -33,6 +33,7 @@
 
 ```
 SNN-AudioEncoder-Ribbon/
+├── singularity_test.py# 音響特異点検出ベンチマーク（通常SNN vs リボンSNN 比較検証）
 ├── launch.py          # 実験・実行ランチャー（CLI引数で全パラメータを調整可能）
 ├── config.py          # ハイパーパラメータの一元管理（デフォルト設定）
 ├── receptor.py        # 周波数受容部 ＆ 動的ピント伸縮
@@ -43,6 +44,17 @@ SNN-AudioEncoder-Ribbon/
 ├── pyproject.toml     # プロジェクト設定
 └── README.md
 ```
+
+---
+
+## 🔬 特異点検出ベンチマーク（案A & 案B 検証）
+
+背景ノイズ下での「突発アタック音（衝撃・クリック音）」や「周波数の急変（ピッチホップ）」を、通常の標準SNNエンコーダと比較検証できます：
+
+```bash
+uv run python singularity_test.py
+```
+実行すると、両エンコーダのスパイク列と後段SNNの検出比較グラフ `singularity_test_result.png` が生成されます。
 
 ---
 
