@@ -16,6 +16,10 @@ wheels/
 !images/*.png
 !article/figs/*.png
 
+# Data & Datasets
+data/
+*.zip
+
 # Secret & Environment files (For Public GitHub protection)
 .env
 .env.*
