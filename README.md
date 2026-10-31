@@ -33,17 +33,19 @@
 
 ```
 SNN-AudioEncoder-Ribbon/
-├── optimize_params.py     # Optuna による自動ハイパーパラメータ探索（ベイズ最適化）
-├── benchmark_comparison.py # 4大SNNエンコーダ直接対決（MFCC+Poisson, Tonic Delta, LIF, Ribbon）
-├── singularity_test.py    # 音響特異点検出ベンチマーク（通常SNN vs リボンSNN 比較検証）
-├── launch.py              # 実験・実行ランチャー（CLI引数で全パラメータを調整可能）
-├── config.py              # ハイパーパラメータの一元管理（デフォルト設定）
-├── receptor.py            # 周波数受容部 ＆ 動的ピント伸縮
-├── ribbon_synapse.py      # リボンシナプス小胞プール ＆ 10〜20個の並列後細胞
-├── encoder.py             # 全体を統合した完成オーディオエンコーダ
-├── demo.py                # 検証・可視化スクリプト
-├── main.py                # メインエントリーポイント
-├── pyproject.toml         # プロジェクト設定
+├── cocktail_party_test.py        # カクテルパーティー効果検証（BGM騒音からの目的音声スパイク抽出）
+├── encoder_tradeoffs_and_cost.py # 既存手法得意タスク（Poisson, Tonic）＆計算コスト（RTF）総合検証
+├── optimize_params.py            # Optuna による自動ハイパーパラメータ探索（ベイズ最適化）
+├── benchmark_comparison.py       # 4大SNNエンコーダ直接対決（MFCC+Poisson, Tonic Delta, LIF, Ribbon）
+├── singularity_test.py           # 音響特異点検出ベンチマーク（通常SNN vs リボンSNN 比較検証）
+├── launch.py                     # 実験・実行ランチャー（CLI引数で全パラメータを調整可能）
+├── config.py                     # ハイパーパラメータの一元管理（デフォルト設定）
+├── receptor.py                   # 周波数受容部 ＆ 動的ピント伸縮
+├── ribbon_synapse.py             # リボンシナプス小胞プール ＆ 10〜20個の並列後細胞
+├── encoder.py                    # 全体を統合した完成オーディオエンコーダ
+├── demo.py                       # 検証・可視化スクリプト
+├── main.py                       # メインエントリーポイント
+├── pyproject.toml                # プロジェクト設定
 └── README.md
 ```
 
