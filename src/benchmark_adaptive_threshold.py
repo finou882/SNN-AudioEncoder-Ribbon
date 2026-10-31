@@ -348,3 +348,4 @@ def run_adaptive_threshold_benchmark():
 
 if __name__ == "__main__":
     run_adaptive_threshold_benchmark()
+
