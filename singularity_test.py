@@ -197,8 +197,7 @@ def run_benchmark():
         print(f"    * {ev['name']}: 時刻 {ev['time']:.2f}s (周波数 ~{ev['freq']}Hz)")
         
     # 2. エンコーダの準備
-    cfg = EncoderConfig()
-    cfg.synapse.release_rate = 3.0  # アタック感度
+    cfg = EncoderConfig()  # Optuna 最適化済みパラメータセットを使用
     ribbon_encoder = RibbonAudioEncoder(cfg)
     baseline_encoder = StandardBaselineEncoder(cfg.receptor)
     

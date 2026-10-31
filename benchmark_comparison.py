@@ -228,8 +228,7 @@ def run_comparison_benchmark():
         print(f"    * {ev['name']}: {ev['time']:.2f}s (~{ev['freq']}Hz)")
         
     # 2. 4つのエンコーダを初期化
-    cfg_ribbon = EncoderConfig()
-    cfg_ribbon.synapse.release_rate = 3.0  # アタック感度
+    cfg_ribbon = EncoderConfig()  # Optuna 最適化済みパラメータセットを使用
     
     encoders = {
         "MFCC + Poisson": MFCCPoissonEncoder(sample_rate=sr, num_channels=16),
