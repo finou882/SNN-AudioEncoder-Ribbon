@@ -33,6 +33,7 @@
 
 ```
 SNN-AudioEncoder-Ribbon/
+├── optimize_params.py     # Optuna による自動ハイパーパラメータ探索（ベイズ最適化）
 ├── benchmark_comparison.py # 4大SNNエンコーダ直接対決（MFCC+Poisson, Tonic Delta, LIF, Ribbon）
 ├── singularity_test.py    # 音響特異点検出ベンチマーク（通常SNN vs リボンSNN 比較検証）
 ├── launch.py              # 実験・実行ランチャー（CLI引数で全パラメータを調整可能）
@@ -45,6 +46,17 @@ SNN-AudioEncoder-Ribbon/
 ├── pyproject.toml         # プロジェクト設定
 └── README.md
 ```
+
+---
+
+## 🎯 Optuna 自動ハイパーパラメータ最適化
+
+ベイズ最適化（TPEアルゴリズム）を用いて、特異点検出率100%・低遅延・省電力を両立する最強パラメータを自動探索します：
+
+```bash
+uv run python optimize_params.py --trials 30
+```
+最適化の推移とパラメータ重要度（どのパラメータが性能に最も影響を与えているか）のグラフ `optuna_optimization_result.png` が生成されます。
 
 ---
 
