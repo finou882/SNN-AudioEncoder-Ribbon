@@ -13,6 +13,8 @@ wheels/
 *.png
 *.wav
 *.mp3
+!images/*.png
+!article/figs/*.png
 
 # Secret & Environment files (For Public GitHub protection)
 .env

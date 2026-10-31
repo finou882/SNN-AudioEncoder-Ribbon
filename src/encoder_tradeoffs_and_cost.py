@@ -18,6 +18,7 @@
 
 import sys
 import time
+from pathlib import Path
 from typing import Tuple, Dict
 import numpy as np
 import matplotlib.pyplot as plt
@@ -171,7 +172,8 @@ def run_tradeoffs_and_cost_benchmark():
     print("=" * 90)
     
     # 4. 可視化グラフの作成
-    out_img = "encoder_cost_and_tradeoffs.png"
+    out_img = "images/encoder_cost_and_tradeoffs.png"
+    Path(out_img).parent.mkdir(parents=True, exist_ok=True)
     fig, axes = plt.subplots(1, 3, figsize=(16, 5))
     plt.subplots_adjust(wspace=0.32)
     

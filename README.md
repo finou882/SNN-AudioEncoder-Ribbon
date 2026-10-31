@@ -56,9 +56,9 @@ SNN-AudioEncoder-Ribbon/
 ベイズ最適化（TPEアルゴリズム）を用いて、特異点検出率100%・低遅延・省電力を両立する最強パラメータを自動探索します：
 
 ```bash
-uv run python optimize_params.py --trials 30
+uv run python src/optimize_params.py --trials 30
 ```
-最適化の推移とパラメータ重要度（どのパラメータが性能に最も影響を与えているか）のグラフ `optuna_optimization_result.png` が生成されます。
+最適化の推移とパラメータ重要度（どのパラメータが性能に最も影響を与えているか）のグラフ `images/optuna_optimization_result.png` が生成されます。
 
 ---
 
@@ -67,9 +67,9 @@ uv run python optimize_params.py --trials 30
 MFCC+Poisson、Tonic Delta、Standard LIF、Ribbon SNN（Ours）の4手法を横並びで比較します：
 
 ```bash
-uv run python benchmark_comparison.py
+uv run python src/benchmark_comparison.py
 ```
-実行すると、全方式のラスタプロットと下流SNNの検出比較グラフ `benchmark_comparison.png` が生成されます。
+実行すると、全方式のラスタプロットと下流SNNの検出比較グラフ `images/benchmark_comparison.png` が生成されます。
 
 ---
 
@@ -78,9 +78,9 @@ uv run python benchmark_comparison.py
 背景ノイズ下での「突発アタック音（衝撃・クリック音）」や「周波数の急変（ピッチホップ）」を、通常の標準SNNエンコーダと比較検証できます：
 
 ```bash
-uv run python singularity_test.py
+uv run python src/singularity_test.py
 ```
-実行すると、両エンコーダのスパイク列と後段SNNの検出比較グラフ `singularity_test_result.png` が生成されます。
+実行すると、両エンコーダのスパイク列と後段SNNの検出比較グラフ `images/singularity_test_result.png` が生成されます。
 
 ---
 
@@ -89,9 +89,9 @@ uv run python singularity_test.py
 音量単体の跳躍（微小音量・大音量跳躍・ウェーバー則）に対する閾値ニューロン動員数（15段階）と、背景音下での「周波数×音量」2次元局所バーストを検証します：
 
 ```bash
-uv run python volume_and_2d_singularity_test.py
+uv run python src/volume_and_2d_singularity_test.py
 ```
-実行すると、閾値別ラスタープロットと2次元時空間ヒートマップ `volume_and_2d_singularity_result.png` が生成されます。
+実行すると、閾値別ラスタープロットと2次元時空間ヒートマップ `images/volume_and_2d_singularity_result.png` が生成されます。
 
 ---
 
@@ -99,15 +99,15 @@ uv run python volume_and_2d_singularity_test.py
 
 - **カクテルパーティー効果検証（BGM中の突発音声抽出）：**
   ```bash
-  uv run python cocktail_party_test.py
+  uv run python src/cocktail_party_test.py
   ```
-  生成画像: `cocktail_party_result.png`
+  生成画像: `images/cocktail_party_result.png`
 
 - **既存エンコーダ得意タスク（静的スペクトル・差分エッジ）＆レイテンシ・計算コスト：**
   ```bash
-  uv run python encoder_tradeoffs_and_cost.py
+  uv run python src/encoder_tradeoffs_and_cost.py
   ```
-  生成画像: `encoder_cost_and_tradeoffs.png`
+  生成画像: `images/encoder_cost_and_tradeoffs.png`
 
 ---
 
@@ -118,21 +118,21 @@ uv run python volume_and_2d_singularity_test.py
 uv sync
 ```
 
-### 実験ランチャー（`launch.py`）による実行
+### 実験ランチャー（`main.py` または `src/launch.py`）による実行
 ハイパーパラメータ（小胞放出率、順応補充速度、閾値グラデーション、ボレー不応期など）を引数で自由に指定して実験できます：
 
 ```bash
-# デフォルト設定でデモ実行＆発火マトリックス表示
-uv run python launch.py --show-table
+# デフォルト設定でデモ実行＆発火マトリックス表示 (main.py 経由)
+uv run python main.py --show-table
 
 # 放出率と補充速度（順応スピード）を調整
-uv run python launch.py --release-rate 2.5 --replenish-rate 0.10
+uv run python src/launch.py --release-rate 2.5 --replenish-rate 0.10
 
 # 閾値グラデーションとボレー不応期を調整
-uv run python launch.py --min-threshold 0.12 --max-threshold 0.80 --refractory-steps 3
+uv run python src/launch.py --min-threshold 0.12 --max-threshold 0.80 --refractory-steps 3
 
 # 独自の音声ファイル (.wav) を流して解析
-uv run python launch.py --audio sample.wav --output result.png
+uv run python src/launch.py --audio sample.wav --output images/result.png
 ```
 
 #### 主なCLI引数一覧
@@ -146,14 +146,13 @@ uv run python launch.py --audio sample.wav --output result.png
 | `--num-post-neurons` | 1チャネルあたりの後細胞数 | `15` |
 | `--num-channels` | 周波数チャネル数 | `16` |
 | `--audio` | 入力WAVファイルのパス（未指定時は検証用音声を生成） | `None` |
-| `--output` | プロット画像の保存先パス | `ribbon_encoder_demo.png` |
+| `--output` | プロット画像の保存先パス | `images/ribbon_encoder_demo.png` |
 | `--show-table` | チャネル別・ニューロン別の詳細発火統計表を表示 | `False` |
 
 ### コードでの利用例
 ```python
 import numpy as np
-from encoder import RibbonAudioEncoder
-from config import EncoderConfig
+from src import RibbonAudioEncoder, EncoderConfig
 
 # エンコーダの初期化
 cfg = EncoderConfig()

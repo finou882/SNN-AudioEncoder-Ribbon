@@ -16,6 +16,7 @@
 """
 
 import sys
+from pathlib import Path
 from typing import Tuple, Dict, List
 import numpy as np
 import matplotlib.pyplot as plt
@@ -283,7 +284,8 @@ def run_benchmark():
     print("=" * 72)
     
     # 6. 比較可視化プロットの作成
-    out_fig = "singularity_test_result.png"
+    out_fig = "images/singularity_test_result.png"
+    Path(out_fig).parent.mkdir(parents=True, exist_ok=True)
     fig, axes = plt.subplots(4, 1, figsize=(13, 12), sharex=True)
     plt.subplots_adjust(hspace=0.28)
     

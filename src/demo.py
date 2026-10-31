@@ -9,6 +9,7 @@
 """
 
 from typing import Tuple, Optional
+from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 from config import EncoderConfig
@@ -48,7 +49,7 @@ def generate_test_audio(sr: int = 16000, duration_sec: float = 1.0) -> Tuple[np.
 
 def run_demo(
     cfg: Optional[EncoderConfig] = None,
-    output_filename: str = "ribbon_encoder_demo.png",
+    output_filename: str = "images/ribbon_encoder_demo.png",
     audio_path: Optional[str] = None,
     save_plot: bool = True,
 ) -> Tuple[np.ndarray, dict]:
@@ -175,8 +176,10 @@ def run_demo(
         axes[4].set_xlim(times[0], times[-1])
         axes[4].grid(True, alpha=0.3)
         
-        plt.savefig(output_filename, dpi=180, bbox_inches="tight")
-        print(f"[3] 検証プロット画像を保存しました: {output_filename}")
+        out_path = Path(output_filename)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        plt.savefig(out_path, dpi=180, bbox_inches="tight")
+        print(f"[3] 検証プロット画像を保存しました: {out_path}")
         plt.close()
         
     return spikes_flat, info

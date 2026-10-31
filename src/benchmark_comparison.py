@@ -21,6 +21,7 @@
 """
 
 import sys
+from pathlib import Path
 from typing import Tuple, Dict, List
 import numpy as np
 import matplotlib.pyplot as plt
@@ -323,7 +324,8 @@ def run_comparison_benchmark():
     print("=" * 94)
     
     # 5. 美麗な5段プロット可視化画像の作成
-    out_img = "benchmark_comparison.png"
+    out_img = "images/benchmark_comparison.png"
+    Path(out_img).parent.mkdir(parents=True, exist_ok=True)
     fig, axes = plt.subplots(6, 1, figsize=(14, 15), sharex=True)
     plt.subplots_adjust(hspace=0.28)
     

@@ -1,0 +1,34 @@
+\documentclass[vivid,uplatex,a4paper,11pt,report]{jsbook} % 卒論等にはjsbook（またはjsreport）
+
+% 外の設定ファイルを読み込み
+\input{preamble}
+
+\title{令和○年度 卒業論文\\ \vspace{10mm} \LaTeX による論文執筆のファイル構成に関する研究}
+\author{山田 太郎\\ \vspace{15mm} 指導教員：○○ 教授}
+\date{2027年 2月} % 提出年月
+
+% =================================================================
+% 本文
+% =================================================================
+\begin{document}
+
+\maketitle % 表紙の生成
+
+\frontmatter % 前付（ローマ字のページ番号）
+\input{chapters/abstract}
+\tableofcontents % 目次を自動生成
+\listoffigures   % 図目次（不要なら削除）
+\listoftables    % 表目次（不要なら削除）
+
+\mainmatter % 本文（1ページから開始）
+\include{chapters/ch1_intro}
+\include{chapters/ch2_method}
+\include{chapters/ch3_experiment}
+\include{chapters/ch4_conclusion}
+
+\backmatter % 後付
+% 参考文献（BibTeXを使用する場合）
+\bibliographystyle{junsrt} % 日本語文献を引用順に並べるスタイル
+\bibliography{references}
+
+\end{document}

@@ -18,6 +18,7 @@
 """
 
 import sys
+from pathlib import Path
 from typing import Tuple, Dict, List
 import numpy as np
 import matplotlib.pyplot as plt
@@ -149,7 +150,8 @@ def run_cocktail_party_benchmark():
     print("=" * 80)
     
     # 可視化プロットの生成
-    out_img = "cocktail_party_result.png"
+    out_img = "images/cocktail_party_result.png"
+    Path(out_img).parent.mkdir(parents=True, exist_ok=True)
     fig, axes = plt.subplots(6, 1, figsize=(14, 15), sharex=True)
     plt.subplots_adjust(hspace=0.28)
     

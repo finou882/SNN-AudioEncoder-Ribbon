@@ -171,7 +171,7 @@ def parse_args():
     io_group.add_argument(
         "--output",
         type=str,
-        default="ribbon_encoder_demo.png",
+        default="images/ribbon_encoder_demo.png",
         help="検証プロット画像の保存先パス",
     )
     io_group.add_argument(

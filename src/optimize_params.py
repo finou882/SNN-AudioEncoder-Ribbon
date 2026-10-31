@@ -23,6 +23,7 @@ Optuna（ベイズ最適化 / TPE）を用いて、リボンシナプスおよ�
 
 import sys
 import os
+from pathlib import Path
 import argparse
 from typing import Tuple, Dict
 import numpy as np
@@ -245,7 +246,8 @@ def main():
     except Exception as e:
         axes[1].text(0.5, 0.5, f"Importance calculation skipped:\n{e}", ha="center", va="center")
         
-    out_img = "optuna_optimization_result.png"
+    out_img = "images/optuna_optimization_result.png"
+    Path(out_img).parent.mkdir(parents=True, exist_ok=True)
     plt.tight_layout()
     plt.savefig(out_img, dpi=180)
     print(f"  * グラフ画像を保存しました: {out_img}")

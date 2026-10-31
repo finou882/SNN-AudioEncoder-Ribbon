@@ -6,6 +6,7 @@ volume_and_2d_singularity_test.py
 """
 
 import sys
+from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 from typing import Dict, Any, Tuple
@@ -296,7 +297,8 @@ def run_volume_and_2d_singularity_test():
     ax8.set_ylabel("Channel Index")
     plt.colorbar(im8, ax=ax8, orientation="horizontal", pad=0.22, shrink=0.7, label="Activity")
     
-    save_path = "volume_and_2d_singularity_result.png"
+    save_path = "images/volume_and_2d_singularity_result.png"
+    Path(save_path).parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(save_path, dpi=300, bbox_inches="tight")
     print(f"[+] プロットを保存しました: {save_path}")
     
