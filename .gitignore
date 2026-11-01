@@ -14,7 +14,10 @@ wheels/
 *.wav
 *.mp3
 !images/*.png
-!article/figs/*.png
+
+# Article / Manuscript (Keep private)
+article/
+articles/
 
 # Data & Datasets
 data/
